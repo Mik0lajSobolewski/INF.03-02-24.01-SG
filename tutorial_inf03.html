@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial INF.03 - Krok po Kroku</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-code: #1e293b;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .header .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-main);
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .nav a:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .nav a .step-num {
+            background: var(--primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        .nav a:hover .step-num {
+            background: white;
+            color: var(--primary);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Section */
+        .section {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-main);
+        }
+        
+        .section-number {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        
+        .section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        
+        .section h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1.5rem 0 1rem 0;
+        }
+        
+        .section h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 1rem 0 0.5rem 0;
+        }
+        
+        /* Step */
+        .step {
+            background: var(--bg-main);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .step-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .step-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+        }
+        
+        /* Code Block */
+        .code-block {
+            background: var(--bg-code);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            white-space: pre;
+            display: block;
+            line-height: 1.6;
+        }
+        
+        .code-block .comment {
+            color: #6ee7b7;
+        }
+        
+        .code-block .tag {
+            color: #f472b6;
+        }
+        
+        .code-block .attr {
+            color: #fbbf24;
+        }
+        
+        .code-block .value {
+            color: #a5f3fc;
+        }
+        
+        .code-block .selector {
+            color: #f472b6;
+        }
+        
+        .code-block .property {
+            color: #93c5fd;
+        }
+        
+        .code-block .js-keyword {
+            color: #c4b5fd;
+        }
+        
+        .code-block .js-string {
+            color: #86efac;
+        }
+        
+        .code-block .js-function {
+            color: #fcd34d;
+        }
+        
+        .code-label {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem 0.25rem 0 0;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: -0.5rem;
+        }
+        
+        /* Info Boxes */
+        .info-box {
+            border-radius: 0.75rem;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .info-box.tip {
+            background: #ecfdf5;
+            border: 1px solid #6ee7b7;
+            color: #065f46;
+        }
+        
+        .info-box.warning {
+            background: #fffbeb;
+            border: 1px solid #fbbf24;
+            color: #92400e;
+        }
+        
+        .info-box.danger {
+            background: #fef2f2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+        
+        .info-box.info {
+            background: #eff6ff;
+            border: 1px solid #93c5fd;
+            color: #1e40af;
+        }
+        
+        .info-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        /* Timeline */
+        .timeline {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+            border-left: 3px solid var(--border);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.4rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+        
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background: var(--bg-main);
+        }
+        
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        /* Image placeholder */
+        .img-example {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin: 1rem 0;
+            border: 2px dashed var(--primary);
+        }
+        
+        /* Color palette */
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .color-item {
+            text-align: center;
+        }
+        
+        .color-swatch {
+            width: 80px;
+            height: 50px;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .color-code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--bg-code);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .footer a {
+            color: var(--primary-light);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .code-block {
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Print */
+        @media print {
+            .nav-container {
+                display: none;
+            }
+            
+            .section {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <h1>🎓 Tutorial INF.03</h1>
+    <p class="subtitle">Egzamin Zawodowy - Część Praktyczna</p>
+    <span class="badge">📝 Zadanie 02 - Styczeń 2024</span>
+</header>
+
+<!-- Navigation -->
+<nav class="nav-container">
+    <div class="nav">
+        <a href="#wprowadzenie"><span class="step-num">0</span> Start</a>
+        <a href="#grafika"><span class="step-num">1</span> Grafika</a>
+        <a href="#animacja"><span class="step-num">2</span> Animacja</a>
+        <a href="#html"><span class="step-num">3</span> HTML</a>
+        <a href="#css"><span class="step-num">4</span> CSS</a>
+        <a href="#javascript"><span class="step-num">5</span> JavaScript</a>
+        <a href="#finalizacja"><span class="step-num">6</span> Finalizacja</a>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="container">
+
+    <!-- WPROWADZENIE -->
+    <section class="section" id="wprowadzenie">
+        <div class="section-header">
+            <span class="section-number">0</span>
+            <h2>Przygotowanie do pracy</h2>
+        </div>
+        
+        <div class="info-box tip">
+            <span class="info-icon">💡</span>
+            <div>
+                <strong>Cel zadania:</strong> Twoim zadaniem jest stworzenie strony internetowej dla firmy "Pogotowie Komputerowe". 
+                Będziesz tworzyć grafikę, animację, stronę HTML, style CSS i skrypt JavaScript.
+            </div>
+        </div>
+        
+        <h3>⏱️ Zarządzanie czasem (150 minut)</h3>
+        
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Etap</th>
+                    <th>Czas</th>
+                    <th>Opis</th>
+                </tr>
+                <tr>
+                    <td>1. Grafika</td>
+                    <td>~25 min</td>
+                    <td>Logo (favicon) + 2 banery</td>
+                </tr>
+                <tr>
+                    <td>2. Animacja</td>
+                    <td>~10 min</td>
+                    <td>Animacja GIF z banerów</td>
+                </tr>
+                <tr>
+                    <td>3. HTML</td>
+                    <td>~40 min</td>
+                    <td>Strona główna + kontakt</td>
+                </tr>
+                <tr>
+                    <td>4. CSS</td>
+                    <td>~25 min</td>
+                    <td>Stylowanie strony</td>
+                </tr>
+                <tr>
+                    <td>5. JavaScript</td>
+                    <td>~30 min</td>
+                    <td>Skrypt formularza</td>
+                </tr>
+                <tr>
+                    <td>6. Finalizacja</td>
+                    <td>~20 min</td>
+                    <td>Sprawdzenie + nagranie płyty</td>
+                </tr>
+            </table>
+        </div>
+        
+        <h3>📁 Krok 1: Rozpakuj materiały</h3>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">1</span>
+                Zaloguj się na konto "Egzamin" (bez hasła)
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">2</span>
+                Znajdź na pulpicie plik "materialy2.7z"
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">3</span>
+                Kliknij prawym przyciskiem → 7-Zip → Rozpakuj tutaj
+            </div>
+            <p>Hasło do archiwum: <code style="background: #fef3c7; padding: 0.2rem 0.5rem; border-radius: 0.25rem; font-weight: bold;">m4teRi@lyQ</code></p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">4</span>
+                Utwórz folder o nazwie = Twój numer PESEL
+            </div>
+            <p>Przykład: <code>03241506789</code></p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">5</span>
+                Przenieś rozpakowane pliki do tego folderu
+            </div>
+        </div>
+        
+        <div class="info-box warning">
+            <span class="info-icon">⚠️</span>
+            <div>
+                <strong>WAŻNE:</strong> Wszystkie pliki zapisuj w folderze z numerem PESEL!
+                Na końcu egzaminu musisz nagrać ten folder na płytę CD.
+            </div>
+        </div>
+    </section>
+
+    <!-- GRAFIKA -->
+    <section class="section" id="grafika">
+        <div class="section-header">
+            <span class="section-number">1</span>
+            <h2>Grafika - GIMP</h2>
+        </div>
+        
+        <div class="info-box info">
+            <span class="info-icon">ℹ️</span>
+            <div>
+                W tej części utworzysz 3 pliki graficzne:
+                <strong>favicon.png</strong>, <strong>baner1.png</strong>, <strong>baner2.png</strong>
+            </div>
+        </div>
+        
+        <!-- FAVICON -->
+        <h3>🖼️ Część A: Logo (favicon)</h3>
+        
+        <div class="img-example">
+            📌 Wymagany efekt: Napis "IT" na przezroczystym tle, 50×50 px, kolor ciemnoczerwony
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">1</span>
+                Uruchom program GIMP
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">2</span>
+                Utwórz nowy obraz
+            </div>
+            <p><strong>Menu:</strong> Plik → Nowy</p>
+            <p>Ustaw: Szerokość = <strong>50</strong>, Wysokość = <strong>50</strong></p>
+            <p>Rozwiń "Opcje zaawansowane" → Wypełnij: <strong>Przezroczystość</strong></p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">3</span>
+                Ustaw kolor ciemnoczerwony
+            </div>
+            <p>Kliknij na kolor pierwszoplanowy (czarny kwadrat w przyborniku)</p>
+            <p>Wpisz wartość HTML: <strong>#8B0000</strong> lub wybierz ciemny czerwony</p>
+        </div>
+        
+        <div class="color-palette">
+            <div class="color-item">
+                <div class="color-swatch" style="background: #8B0000;"></div>
+                <div class="color-code">#8B0000</div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">4</span>
+                Dodaj napis "IT"
+            </div>
+            <p><strong>Narzędzie:</strong> Narzędzia → Tekst (lub klawisz <code>T</code>)</p>
+            <p>Kliknij na obraz i wpisz: <strong>IT</strong></p>
+            <p>Ustaw rozmiar czcionki tak, aby tekst wypełniał całą przestrzeń (ok. 30-40 px)</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">5</span>
+                Wyśrodkuj tekst
+            </div>
+            <p><strong>Menu:</strong> Obraz → Spłaszcz obraz</p>
+            <p><strong>Menu:</strong> Warstwa → Warstwa do rozmiaru obrazu</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">6</span>
+                Zapisz plik
+            </div>
+            <p><strong>Menu:</strong> Plik → Wyeksportuj jako</p>
+            <p>Nazwa: <strong>favicon.png</strong></p>
+            <p>Lokalizacja: folder z Twoim PESEL</p>
+        </div>
+        
+        <div class="info-box tip">
+            <span class="info-icon">💡</span>
+            <div>
+                <strong>Dlaczego PNG?</strong> Format PNG obsługuje przezroczystość. 
+                To bardzo ważne w tym zadaniu!
+            </div>
+        </div>
+        
+        <!-- BANER 1 -->
+        <h3>🖼️ Część B: Baner 1 (czerwony tekst)</h3>
+        
+        <div class="img-example">
+            📌 Wymagany efekt: 1000×200 px, obraz myszy po lewej (obrócony) i prawej, 
+            napis "POGOTOWIE KOMPUTEROWE" w kolorze czerwonym, przezroczyste tło
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">1</span>
+                Utwórz nowy obraz
+            </div>
+            <p><strong>Menu:</strong> Plik → Nowy</p>
+            <p>Szerokość = <strong>1000</strong>, Wysokość = <strong>200</strong></p>
+            <p>Wypełnij: <strong>Przezroczystość</strong></p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">2</span>
+                Otwórz plik mysz.jpg jako warstwę
+            </div>
+            <p><strong>Menu:</strong> Plik → Otwórz jako warstwy</p>
+            <p>Wybierz plik: <strong>mysz.jpg</strong></p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">3</span>
+                Przeskaluj mysz do wysokości 200 px
+            </div>
+            <p><strong>Menu:</strong> Obraz → Skaluj obraz</p>
+            <p>Wysokość = <strong>200</strong> (szerokość zmieni się automatycznie - ikona łańcucha musi być połączona!)</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">4</span>
+                Utwórz kopię warstwy z myszą
+            </div>
+            <p><strong>Menu:</strong> Warstwa → Powiel warstwę</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">5</span>
+                Obróć jedną kopię myszy
+            </div>
+            <p>Zaznacz pierwszą warstwę myszy</p>
+            <p><strong>Menu:</strong> Obraz → Przekształcenie → Odbij w poziomie</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">6</span>
+                Rozmieść myszy
+            </div>
+            <p>Użyj narzędzia Przesunięcie (klawisz <code>M</code>)</p>
+            <p>Obrócona mysz → <strong>lewa strona</strong></p>
+            <p>Normalna mysz → <strong>prawa strona</strong></p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">7</span>
+                Dodaj napis
+            </div>
+            <p><strong>Narzędzie:</strong> Tekst (klawisz <code>T</code>)</p>
+            <p>Tekst: <strong>POGOTOWIE KOMPUTEROWE</strong></p>
+            <p>Czcionka: <strong>Arial Bold</strong></p>
+            <p>Kolor: <strong>Czerwony (#FF0000)</strong></p>
+            <p>Umieść tekst na środku między obrazami myszy</p>
+        </div>
+        
+        <div class="color-palette">
+            <div class="color-item">
+                <div class="color-swatch" style="background: #FF0000;"></div>
+                <div class="color-code">#FF0000</div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">8</span>
+                Spłaszcz i eksportuj
+            </div>
+            <p><strong>Menu:</strong> Obraz → Spłaszcz obraz</p>
+            <p><strong>Menu:</strong> Plik → Wyeksportuj jako → <strong>baner1.png</strong></p>
+        </div>
+        
+        <!-- BANER 2 -->
+        <h3>🖼️ Część C: Baner 2 (żółty tekst)</h3>
+        
+        <div class="info-box tip">
+            <span class="info-icon">💡</span>
+            <div>
+                <strong>Szybka metoda:</strong> Baner 2 jest prawie identyczny jak baner 1. 
+                Zmienia się tylko kolor tekstu na żółty!
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">1</span>
+                Cofnij się do wersji przed spłaszczeniem
+            </div>
+            <p><strong>Menu:</strong> Edycja → Cofnij (lub <code>Ctrl+Z</code>)</p>
+            <p>Alternatywnie: otwórz baner1.png i edytuj</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">2</span>
+                Zmień kolor tekstu na żółty
+            </div>
+            <p>Zaznacz warstwę z tekstem</p>
+            <p><strong>Menu:</strong> Kolory → Odwzoruj → Odwzorowanie kolorów</p>
+            <p>Lub usuń tekst i dodaj nowy w kolorze <strong>żółtym (#FFFF00)</strong></p>
+        </div>
+        
+        <div class="color-palette">
+            <div class="color-item">
+                <div class="color-swatch" style="background: #FFFF00;"></div>
+                <div class="color-code">#FFFF00</div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">3</span>
+                Eksportuj jako baner2.png
+            </div>
+            <p><strong>Menu:</strong> Obraz → Spłaszcz obraz</p>
+            <p><strong>Menu:</strong> Plik → Wyeksportuj jako → <strong>baner2.png</strong></p>
+        </div>
+        
+        <div class="info-box warning">
+            <span class="info-icon">⚠️</span>
+            <div>
+                <strong>Sprawdź:</strong> Czy oba pliki mają rozszerzenie .png? 
+                Czy są w folderze z Twoim PESEL?
+            </div>
+        </div>
+    </section>
+
+    <!-- ANIMACJA -->
+    <section class="section" id="animacja">
+        <div class="section-header">
+            <span class="section-number">2</span>
+            <h2>Animacja GIF - GIMP</h2>
+        </div>
+        
+        <div class="info-box info">
+            <span class="info-icon">ℹ️</span>
+            <div>
+                Teraz połączysz oba banery w animację GIF, która będzie się zmieniać co 4 sekundy.
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">1</span>
+                Otwórz baner1.png jako nowy obraz
+            </div>
+            <p><strong>Menu:</strong> Plik → Otwórz → wybierz <strong>baner1.png</strong></p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">2</span>
+                Dodaj baner2.png jako warstwę
+            </div>
+            <p><strong>Menu:</strong> Plik → Otwórz jako warstwy → wybierz <strong>baner2.png</strong></p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">3</span>
+                Zmień nazwy warstw (ustawienie opóźnienia)
+            </div>
+            <p>W panelu Warstwy (prawy panel):</p>
+            <p>Kliknij dwukrotnie na nazwę warstwy baner1 i zmień na: <strong>baner1 (4000ms)</strong></p>
+            <p>Kliknij dwukrotnie na nazwę warstwy baner2 i zmień na: <strong>baner2 (4000ms)</strong></p>
+        </div>
+        
+        <div class="info-box tip">
+            <span class="info-icon">💡</span>
+            <div>
+                <strong>Co oznacza (4000ms)?</strong> To czas wyświetlania klatki w milisekundach.
+                4000 ms = 4 sekundy.
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">4</span>
+                Zrób zrzut ekranu dla dokumentacji
+            </div>
+            <p>Naciśnij klawisz <strong>Print Screen</strong> (PrtSc)</p>
+            <p>Otwórz <strong>Paint</strong> lub inny program</p>
+            <p>Wklej (Ctrl+V) i zapisz jako <strong>klatki.jpg</strong></p>
+        </div>
+        
+        <div class="info-box danger">
+            <span class="info-icon">❗</span>
+            <div>
+                <strong>UWAGA:</strong> Na zrzucie MUSI być widoczne:
+                <ul style="margin-top: 0.5rem; margin-left: 1rem;">
+                    <li>Okno GIMP z warstwami</li>
+                    <li>Widoczna wartość opóźnienia (4000ms)</li>
+                    <li>Pasek zadań Windows</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">5</span>
+                Podgląd animacji
+            </div>
+            <p><strong>Menu:</strong> Filtry → Animacja → Podgląd</p>
+            <p>Sprawdź, czy animacja działa poprawnie</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">6</span>
+                Eksportuj jako animacja.gif
+            </div>
+            <p><strong>Menu:</strong> Plik → Wyeksportuj jako</p>
+            <p>Nazwa: <strong>animacja.gif</strong></p>
+            <p>W oknie eksportu zaznacz: <strong>"Jako animacja"</strong></p>
+            <p>Kliknij: Wyeksportuj</p>
+        </div>
+        
+        <div class="info-box tip">
+            <span class="info-icon">✅</span>
+            <div>
+                <strong>Gotowe!</strong> Teraz masz 5 plików graficznych: favicon.png, baner1.png, baner2.png, animacja.gif, klatki.jpg
+            </div>
+        </div>
+    </section>
+
+    <!-- HTML -->
+    <section class="section" id="html">
+        <div class="section-header">
+            <span class="section-number">3</span>
+            <h2>Strony HTML</h2>
+        </div>
+        
+        <div class="info-box info">
+            <span class="info-icon">ℹ️</span>
+            <div>
+                Teraz utworzysz dwa pliki HTML: <strong>index.html</strong> (strona główna) 
+                i <strong>kontakt.html</strong> (strona z formularzem).
+            </div>
+        </div>
+        
+        <!-- INDEX.HTML -->
+        <h3>📄 Plik: index.html (Strona główna)</h3>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">1</span>
+                Otwórz edytor kodu (np. Notepad++, VS Code)
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">2</span>
+                Utwórz nowy plik i wpisz poniższy kod
+            </div>
+        </div>
+        
+        <span class="code-label">index.html</span>
+        <div class="code-block">
+<code><span class="comment">&lt;!-- Deklaracja typu dokumentu HTML5 --&gt;</span>
+<span class="tag">&lt;!DOCTYPE html&gt;</span>
+
+<span class="comment">&lt;!-- Początek dokumentu HTML, ustawienie języka na polski --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang=</span><span class="value">"pl"</span><span class="tag">&gt;</span>
+
+<span class="tag">&lt;head&gt;</span>
+    <span class="comment">&lt;!-- Kodowanie polskich znaków --&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset=</span><span class="value">"UTF-8"</span><span class="tag">&gt;</span>
+    
+    <span class="comment">&lt;!-- Tytuł strony widoczny na karcie przeglądarki --&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Komputery<span class="tag">&lt;/title&gt;</span>
+    
+    <span class="comment">&lt;!-- Ikona strony (favicon) --&gt;</span>
+    <span class="tag">&lt;link</span> <span class="attr">rel=</span><span class="value">"icon"</span> <span class="attr">href=</span><span class="value">"favicon.png"</span><span class="tag">&gt;</span>
+    
+    <span class="comment">&lt;!-- Połączenie z arkuszem stylów CSS --&gt;</span>
+    <span class="tag">&lt;link</span> <span class="attr">rel=</span><span class="value">"stylesheet"</span> <span class="attr">href=</span><span class="value">"styl.css"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+
+<span class="tag">&lt;body&gt;</span>
+    <span class="comment">&lt;!-- KONTENER CAŁEJ STRONY --&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">id=</span><span class="value">"kontener"</span><span class="tag">&gt;</span>
+    
+        <span class="comment">&lt;!-- BANER --&gt;</span>
+        <span class="tag">&lt;header</span> <span class="attr">id=</span><span class="value">"baner"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;img</span> <span class="attr">src=</span><span class="value">"animacja.gif"</span> <span class="attr">alt=</span><span class="value">"Pogotowie komputerowe"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;/header&gt;</span>
+        
+        <span class="comment">&lt;!-- MENU --&gt;</span>
+        <span class="tag">&lt;nav</span> <span class="attr">id=</span><span class="value">"menu"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;a</span> <span class="attr">href=</span><span class="value">"index.html"</span><span class="tag">&gt;</span>Strona Główna<span class="tag">&lt;/a&gt;</span>
+            <span class="tag">&lt;a</span> <span class="attr">href=</span><span class="value">"kontakt.html"</span><span class="tag">&gt;</span>Kontakt<span class="tag">&lt;/a&gt;</span>
+        <span class="tag">&lt;/nav&gt;</span>
+        
+        <span class="comment">&lt;!-- TRZY BLOKI GŁÓWNE --&gt;</span>
+        <span class="tag">&lt;main&gt;</span>
+            <span class="comment">&lt;!-- Blok 1: Kim jesteśmy --&gt;</span>
+            <span class="tag">&lt;section</span> <span class="attr">class=</span><span class="value">"blok"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;h3&gt;</span>Kim jesteśmy?<span class="tag">&lt;/h3&gt;</span>
+                <span class="tag">&lt;p&gt;</span>Jesteśmy firmą z wieloletnim doświadczeniem w zakresie IT.<span class="tag">&lt;/p&gt;</span>
+            <span class="tag">&lt;/section&gt;</span>
+            
+            <span class="comment">&lt;!-- Blok 2: Co robimy --&gt;</span>
+            <span class="tag">&lt;section</span> <span class="attr">class=</span><span class="value">"blok"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;h3&gt;</span>Co robimy?<span class="tag">&lt;/h3&gt;</span>
+                <span class="tag">&lt;ul&gt;</span>
+                    <span class="tag">&lt;li&gt;</span>naprawa komputerów<span class="tag">&lt;/li&gt;</span>
+                    <span class="tag">&lt;li&gt;</span>odzyskiwanie danych<span class="tag">&lt;/li&gt;</span>
+                    <span class="tag">&lt;li&gt;</span>wirusy<span class="tag">&lt;/li&gt;</span>
+                    <span class="tag">&lt;li&gt;</span>konfiguracja LAN<span class="tag">&lt;/li&gt;</span>
+                <span class="tag">&lt;/ul&gt;</span>
+            <span class="tag">&lt;/section&gt;</span>
+            
+            <span class="comment">&lt;!-- Blok 3: Nasz znak --&gt;</span>
+            <span class="tag">&lt;section</span> <span class="attr">class=</span><span class="value">"blok"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;h3&gt;</span>Jaki jest nasz znak?<span class="tag">&lt;/h3&gt;</span>
+                <span class="tag">&lt;img</span> <span class="attr">src=</span><span class="value">"favicon.png"</span> <span class="attr">alt=</span><span class="value">"Doświadczenie i niezawodność"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;/section&gt;</span>
+        <span class="tag">&lt;/main&gt;</span>
+        
+        <span class="comment">&lt;!-- STOPKA --&gt;</span>
+        <span class="tag">&lt;footer</span> <span class="attr">id=</span><span class="value">"stopka"</span><span class="tag">&gt;</span>
+            Autor: <span class="tag">&lt;em&gt;</span>00000000000<span class="tag">&lt;/em&gt;</span>
+        <span class="tag">&lt;/footer&gt;</span>
+        
+    <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></code>
+        </div>
+        
+        <div class="info-box warning">
+            <span class="info-icon">⚠️</span>
+            <div>
+                <strong>PAMIĘTAJ:</strong> Zamień <code>00000000000</code> na swój numer PESEL!
+                Numer jest pochylony znacznikiem <code>&lt;em&gt;</code> (semantyczny znacznik).
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">3</span>
+                Zapisz plik jako index.html
+            </div>
+            <p>Lokalizacja: folder z Twoim numerem PESEL</p>
+            <p>Kodowanie: <strong>UTF-8</strong> (ważne dla polskich znaków!)</p>
+        </div>
+        
+        <!-- KONTAKT.HTML -->
+        <h3>📄 Plik: kontakt.html (Strona kontaktowa)</h3>
+        
+        <span class="code-label">kontakt.html</span>
+        <div class="code-block">
+<code><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang=</span><span class="value">"pl"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset=</span><span class="value">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Komputery<span class="tag">&lt;/title&gt;</span>
+    <span class="tag">&lt;link</span> <span class="attr">rel=</span><span class="value">"icon"</span> <span class="attr">href=</span><span class="value">"favicon.png"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;link</span> <span class="attr">rel=</span><span class="value">"stylesheet"</span> <span class="attr">href=</span><span class="value">"styl.css"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">id=</span><span class="value">"kontener"</span><span class="tag">&gt;</span>
+    
+        <span class="comment">&lt;!-- BANER --&gt;</span>
+        <span class="tag">&lt;header</span> <span class="attr">id=</span><span class="value">"baner"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;img</span> <span class="attr">src=</span><span class="value">"animacja.gif"</span> <span class="attr">alt=</span><span class="value">"Pogotowie komputerowe"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;/header&gt;</span>
+        
+        <span class="comment">&lt;!-- MENU --&gt;</span>
+        <span class="tag">&lt;nav</span> <span class="attr">id=</span><span class="value">"menu"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;a</span> <span class="attr">href=</span><span class="value">"index.html"</span><span class="tag">&gt;</span>Strona Główna<span class="tag">&lt;/a&gt;</span>
+            <span class="tag">&lt;a</span> <span class="attr">href=</span><span class="value">"kontakt.html"</span><span class="tag">&gt;</span>Kontakt<span class="tag">&lt;/a&gt;</span>
+        <span class="tag">&lt;/nav&gt;</span>
+        
+        <span class="comment">&lt;!-- TRZY BLOKI GŁÓWNE --&gt;</span>
+        <span class="tag">&lt;main&gt;</span>
+            <span class="comment">&lt;!-- Blok 1: PUSTY --&gt;</span>
+            <span class="tag">&lt;section</span> <span class="attr">class=</span><span class="value">"blok"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;/section&gt;</span>
+            
+            <span class="comment">&lt;!-- Blok 2: FORMULARZ --&gt;</span>
+            <span class="tag">&lt;section</span> <span class="attr">class=</span><span class="value">"blok"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;h2&gt;</span>Kontakt<span class="tag">&lt;/h2&gt;</span>
+                
+                <span class="comment">&lt;!-- TABELA Z FORMULARZEM --&gt;</span>
+                <span class="tag">&lt;table&gt;</span>
+                    <span class="comment">&lt;!-- Wiersz 1: Imię --&gt;</span>
+                    <span class="tag">&lt;tr&gt;</span>
+                        <span class="tag">&lt;td&gt;</span>Imię: <span class="tag">&lt;/td&gt;</span>
+                        <span class="tag">&lt;td&gt;&lt;input</span> <span class="attr">type=</span><span class="value">"text"</span> <span class="attr">id=</span><span class="value">"imie"</span><span class="tag">&gt;&lt;/td&gt;</span>
+                    <span class="tag">&lt;/tr&gt;</span>
+                    
+                    <span class="comment">&lt;!-- Wiersz 2: Nazwisko --&gt;</span>
+                    <span class="tag">&lt;tr&gt;</span>
+                        <span class="tag">&lt;td&gt;</span>Nazwisko: <span class="tag">&lt;/td&gt;</span>
+                        <span class="tag">&lt;td&gt;&lt;input</span> <span class="attr">type=</span><span class="value">"text"</span> <span class="attr">id=</span><span class="value">"nazwisko"</span><span class="tag">&gt;&lt;/td&gt;</span>
+                    <span class="tag">&lt;/tr&gt;</span>
+                    
+                    <span class="comment">&lt;!-- Wiersz 3: E-mail --&gt;</span>
+                    <span class="tag">&lt;tr&gt;</span>
+                        <span class="tag">&lt;td&gt;</span>E-mail: <span class="tag">&lt;/td&gt;</span>
+                        <span class="tag">&lt;td&gt;&lt;input</span> <span class="attr">type=</span><span class="value">"email"</span> <span class="attr">id=</span><span class="value">"email"</span><span class="tag">&gt;&lt;/td&gt;</span>
+                    <span class="tag">&lt;/tr&gt;</span>
+                    
+                    <span class="comment">&lt;!-- Wiersz 4: Zgłoszenie (lista rozwijana) --&gt;</span>
+                    <span class="tag">&lt;tr&gt;</span>
+                        <span class="tag">&lt;td&gt;</span>Zgłoszenie: <span class="tag">&lt;/td&gt;</span>
+                        <span class="tag">&lt;td&gt;</span>
+                            <span class="tag">&lt;select</span> <span class="attr">id=</span><span class="value">"usluga"</span><span class="tag">&gt;</span>
+                                <span class="tag">&lt;option&gt;</span>naprawa komputerów<span class="tag">&lt;/option&gt;</span>
+                                <span class="tag">&lt;option&gt;</span>odzyskiwanie danych<span class="tag">&lt;/option&gt;</span>
+                                <span class="tag">&lt;option&gt;</span>wirusy<span class="tag">&lt;/option&gt;</span>
+                                <span class="tag">&lt;option&gt;</span>konfiguracja LAN<span class="tag">&lt;/option&gt;</span>
+                            <span class="tag">&lt;/select&gt;</span>
+                        <span class="tag">&lt;/td&gt;</span>
+                    <span class="tag">&lt;/tr&gt;</span>
+                    
+                    <span class="comment">&lt;!-- Wiersz 5: Checkbox --&gt;</span>
+                    <span class="tag">&lt;tr&gt;</span>
+                        <span class="tag">&lt;td&gt;&lt;/td&gt;</span>
+                        <span class="tag">&lt;td&gt;</span>
+                            <span class="tag">&lt;input</span> <span class="attr">type=</span><span class="value">"checkbox"</span> <span class="attr">id=</span><span class="value">"kopia"</span> <span class="attr">checked</span><span class="tag">&gt;</span>
+                            Wyślij kopię wiadomości
+                        <span class="tag">&lt;/td&gt;</span>
+                    <span class="tag">&lt;/tr&gt;</span>
+                    
+                    <span class="comment">&lt;!-- Wiersz 6: Przyciski --&gt;</span>
+                    <span class="tag">&lt;tr&gt;</span>
+                        <span class="tag">&lt;td&gt;&lt;/td&gt;</span>
+                        <span class="tag">&lt;td&gt;</span>
+                            <span class="tag">&lt;button</span> <span class="attr">type=</span><span class="value">"reset"</span><span class="tag">&gt;</span>Czyść<span class="tag">&lt;/button&gt;</span>
+                            <span class="tag">&lt;button</span> <span class="attr">type=</span><span class="value">"button"</span> <span class="attr">onclick=</span><span class="value">"wyslij()"</span><span class="tag">&gt;</span>Wyślij<span class="tag">&lt;/button&gt;</span>
+                        <span class="tag">&lt;/td&gt;</span>
+                    <span class="tag">&lt;/tr&gt;</span>
+                <span class="tag">&lt;/table&gt;</span>
+                
+                <span class="comment">&lt;!-- Linia pozioma --&gt;</span>
+                <span class="tag">&lt;hr&gt;</span>
+                
+                <span class="comment">&lt;!-- Tu pojawi się wynik skryptu --&gt;</span>
+                <span class="tag">&lt;p</span> <span class="attr">id=</span><span class="value">"wynik"</span><span class="tag">&gt;&lt;/p&gt;</span>
+            <span class="tag">&lt;/section&gt;</span>
+            
+            <span class="comment">&lt;!-- Blok 3: PUSTY --&gt;</span>
+            <span class="tag">&lt;section</span> <span class="attr">class=</span><span class="value">"blok"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;/section&gt;</span>
+        <span class="tag">&lt;/main&gt;</span>
+        
+        <span class="comment">&lt;!-- STOPKA --&gt;</span>
+        <span class="tag">&lt;footer</span> <span class="attr">id=</span><span class="value">"stopka"</span><span class="tag">&gt;</span>
+            Autor: <span class="tag">&lt;em&gt;</span>00000000000<span class="tag">&lt;/em&gt;</span>
+        <span class="tag">&lt;/footer&gt;</span>
+        
+    <span class="tag">&lt;/div&gt;</span>
+    
+    <span class="comment">&lt;!-- SKRYPT JAVASCRIPT --&gt;</span>
+    <span class="tag">&lt;script&gt;</span>
+    <span class="js-keyword">function</span> <span class="js-function">wyslij</span>() {
+        <span class="comment">// Pobieranie wartości z formularza</span>
+        <span class="js-keyword">var</span> imie = document.getElementById(<span class="js-string">"imie"</span>).value;
+        <span class="js-keyword">var</span> nazwisko = document.getElementById(<span class="js-string">"nazwisko"</span>).value;
+        <span class="js-keyword">var</span> email = document.getElementById(<span class="js-string">"email"</span>).value;
+        <span class="js-keyword">var</span> usluga = document.getElementById(<span class="js-string">"usluga"</span>).value;
+        
+        <span class="comment">// Zamiana email na małe litery</span>
+        email = email.toLowerCase();
+        
+        <span class="comment">// Wyświetlenie wyniku</span>
+        document.getElementById(<span class="js-string">"wynik"</span>).innerHTML = 
+            imie + <span class="js-string">" "</span> + nazwisko + <span class="js-string">"&lt;br&gt;"</span> + 
+            email + <span class="js-string">"&lt;br&gt;"</span> + 
+            <span class="js-string">"Usługa: "</span> + usluga;
+    }
+    <span class="tag">&lt;/script&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></code>
+        </div>
+        
+        <h3>📋 Wyjaśnienie ważnych elementów HTML</h3>
+        
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Element</th>
+                    <th>Co robi?</th>
+                    <th>Przykład</th>
+                </tr>
+                <tr>
+                    <td><code>&lt;!DOCTYPE html&gt;</code></td>
+                    <td>Mówi przeglądarce, że to HTML5</td>
+                    <td>Zawsze na początku!</td>
+                </tr>
+                <tr>
+                    <td><code>lang="pl"</code></td>
+                    <td>Ustawia język na polski</td>
+                    <td>&lt;html lang="pl"&gt;</td>
+                </tr>
+                <tr>
+                    <td><code>charset="UTF-8"</code></td>
+                    <td>Kodowanie polskich znaków (ą, ę, ó...)</td>
+                    <td>&lt;meta charset="UTF-8"&gt;</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;header&gt;</code></td>
+                    <td>Nagłówek strony (baner)</td>
+                    <td>Znacznik sekcji</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;nav&gt;</code></td>
+                    <td>Menu nawigacyjne</td>
+                    <td>Znacznik sekcji</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;main&gt;</code></td>
+                    <td>Główna treść strony</td>
+                    <td>Znacznik sekcji</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;section&gt;</code></td>
+                    <td>Sekcja treści (blok)</td>
+                    <td>Znacznik sekcji</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;footer&gt;</code></td>
+                    <td>Stopka strony</td>
+                    <td>Znacznik sekcji</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;em&gt;</code></td>
+                    <td>Tekst pochylony (semantycznie)</td>
+                    <td>&lt;em&gt;tekst&lt;/em&gt;</td>
+                </tr>
+                <tr>
+                    <td><code>type="email"</code></td>
+                    <td>Pole na e-mail (z walidacją)</td>
+                    <td>&lt;input type="email"&gt;</td>
+                </tr>
+                <tr>
+                    <td><code>checked</code></td>
+                    <td>Checkbox domyślnie zaznaczony</td>
+                    <td>&lt;input type="checkbox" checked&gt;</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- CSS -->
+    <section class="section" id="css">
+        <div class="section-header">
+            <span class="section-number">4</span>
+            <h2>Style CSS</h2>
+        </div>
+        
+        <div class="info-box info">
+            <span class="info-icon">ℹ️</span>
+            <div>
+                Arkusz CSS odpowiada za wygląd strony: kolory, rozmiary, układ elementów.
+            </div>
+        </div>
+        
+        <h3>🎨 Paleta kolorów z zadania</h3>
+        
+        <div class="color-palette">
+            <div class="color-item">
+                <div class="color-swatch" style="background: #E0F7FA;"></div>
+                <div class="color-code">#E0F7FA</div>
+                <small>Tło strony</small>
+            </div>
+            <div class="color-item">
+                <div class="color-swatch" style="background: #00838F;"></div>
+                <div class="color-code">#00838F</div>
+                <small>Baner, przyciski</small>
+            </div>
+            <div class="color-item">
+                <div class="color-swatch" style="background: #006064;"></div>
+                <div class="color-code">#006064</div>
+                <small>Menu, stopka</small>
+            </div>
+            <div class="color-item">
+                <div class="color-swatch" style="background: #80DEEA;"></div>
+                <div class="color-code">#80DEEA</div>
+                <small>Przycisk hover</small>
+            </div>
+            <div class="color-item">
+                <div class="color-swatch" style="background: #FFFFFF;"></div>
+                <div class="color-code">#FFFFFF</div>
+                <small>Biały tekst</small>
+            </div>
+        </div>
+        
+        <h3>📄 Plik: styl.css</h3>
+        
+        <span class="code-label">styl.css</span>
+        <div class="code-block">
+<code><span class="comment">/* ================================
+   STYLE DLA CAŁEJ STRONY
+   ================================ */</span>
+
+<span class="selector">body</span> {
+    <span class="property">background-color</span>: #E0F7FA;   <span class="comment">/* Jasne tło */</span>
+    <span class="property">font-family</span>: Arial;         <span class="comment">/* Czcionka Arial */</span>
+    <span class="property">text-align</span>: center;         <span class="comment">/* Wyrównanie do środka */</span>
+}
+
+
+<span class="comment">/* ================================
+   KONTENER CAŁEJ STRONY
+   ================================ */</span>
+
+<span class="selector">#kontener</span> {
+    <span class="property">width</span>: 95%;                  <span class="comment">/* Szerokość 95% */</span>
+    <span class="property">margin</span>: auto;                <span class="comment">/* Wyśrodkowanie (marginesy automatyczne) */</span>
+}
+
+
+<span class="comment">/* ================================
+   BANER
+   ================================ */</span>
+
+<span class="selector">#baner</span> {
+    <span class="property">background-color</span>: #00838F;   <span class="comment">/* Kolor tła banera */</span>
+    <span class="property">height</span>: 200px;               <span class="comment">/* Wysokość 200 pikseli */</span>
+}
+
+
+<span class="comment">/* ================================
+   MENU NAWIGACYJNE
+   ================================ */</span>
+
+<span class="selector">#menu</span> {
+    <span class="property">background-color</span>: #006064;   <span class="comment">/* Ciemniejsze tło */</span>
+    <span class="property">padding</span>: 15px;               <span class="comment">/* Wewnętrzne marginesy 15px */</span>
+}
+
+<span class="comment">/* Linki w menu */</span>
+<span class="selector">#menu a</span> {
+    <span class="property">color</span>: white;                <span class="comment">/* Biały kolor tekstu */</span>
+    <span class="property">text-decoration</span>: none;       <span class="comment">/* Bez podkreślenia */</span>
+    <span class="property">font-size</span>: 150%;             <span class="comment">/* Rozmiar 150% */</span>
+}
+
+
+<span class="comment">/* ================================
+   TRZY BLOKI GŁÓWNE
+   ================================ */</span>
+
+<span class="selector">.blok</span> {
+    <span class="property">height</span>: 350px;               <span class="comment">/* Wysokość bloku */</span>
+    <span class="property">width</span>: 33%;                  <span class="comment">/* Szerokość 33% (3 bloki = 99%) */</span>
+    <span class="property">display</span>: inline-block;       <span class="comment">/* Wyświetlanie obok siebie */</span>
+    <span class="property">vertical-align</span>: top;         <span class="comment">/* Wyrównanie do góry */</span>
+}
+
+
+<span class="comment">/* ================================
+   STOPKA
+   ================================ */</span>
+
+<span class="selector">#stopka</span> {
+    <span class="property">background-color</span>: #006064;   <span class="comment">/* Ciemne tło */</span>
+    <span class="property">color</span>: white;                <span class="comment">/* Biały tekst */</span>
+    <span class="property">text-align</span>: right;           <span class="comment">/* Wyrównanie do prawej */</span>
+    <span class="property">padding</span>: 10px;               <span class="comment">/* Wewnętrzne marginesy */</span>
+}
+
+
+<span class="comment">/* ================================
+   LISTA PUNKTOWANA
+   ================================ */</span>
+
+<span class="selector">ul</span> {
+    <span class="property">text-align</span>: left;            <span class="comment">/* Wyrównanie do lewej */</span>
+}
+
+
+<span class="comment">/* ================================
+   PRZYCISKI
+   ================================ */</span>
+
+<span class="selector">button</span> {
+    <span class="property">background-color</span>: #00838F;   <span class="comment">/* Kolor tła przycisku */</span>
+    <span class="property">color</span>: white;                <span class="comment">/* Biały tekst */</span>
+}
+
+<span class="comment">/* Efekt po najechaniu myszką na przycisk */</span>
+<span class="selector">button:hover</span> {
+    <span class="property">color</span>: #80DEEA;              <span class="comment">/* Zmiana koloru tekstu */</span>
+}</code>
+        </div>
+        
+        <h3>📋 Wyjaśnienie ważnych właściwości CSS</h3>
+        
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Właściwość</th>
+                    <th>Co robi?</th>
+                    <th>Wartości</th>
+                </tr>
+                <tr>
+                    <td><code>background-color</code></td>
+                    <td>Kolor tła</td>
+                    <td>#E0F7FA, red, rgb(0,0,0)</td>
+                </tr>
+                <tr>
+                    <td><code>color</code></td>
+                    <td>Kolor tekstu</td>
+                    <td>white, #006064</td>
+                </tr>
+                <tr>
+                    <td><code>font-family</code></td>
+                    <td>Krój czcionki</td>
+                    <td>Arial, Times New Roman</td>
+                </tr>
+                <tr>
+                    <td><code>text-align</code></td>
+                    <td>Wyrównanie tekstu</td>
+                    <td>left, center, right</td>
+                </tr>
+                <tr>
+                    <td><code>width</code></td>
+                    <td>Szerokość</td>
+                    <td>95%, 200px, auto</td>
+                </tr>
+                <tr>
+                    <td><code>height</code></td>
+                    <td>Wysokość</td>
+                    <td>350px, 50%</td>
+                </tr>
+                <tr>
+                    <td><code>margin</code></td>
+                    <td>Margines zewnętrzny</td>
+                    <td>auto, 10px, 0</td>
+                </tr>
+                <tr>
+                    <td><code>padding</code></td>
+                    <td>Margines wewnętrzny</td>
+                    <td>15px, 10px 20px</td>
+                </tr>
+                <tr>
+                    <td><code>text-decoration</code></td>
+                    <td>Dekoracja tekstu</td>
+                    <td>none, underline</td>
+                </tr>
+                <tr>
+                    <td><code>font-size</code></td>
+                    <td>Rozmiar czcionki</td>
+                    <td>150%, 16px, 1.2em</td>
+                </tr>
+                <tr>
+                    <td><code>display</code></td>
+                    <td>Sposób wyświetlania</td>
+                    <td>inline-block, block, flex</td>
+                </tr>
+                <tr>
+                    <td><code>:hover</code></td>
+                    <td>Stan po najechaniu myszką</td>
+                    <td>Pseudoklasa</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="info-box tip">
+            <span class="info-icon">💡</span>
+            <div>
+                <strong>Selektor #</strong> oznacza element z <code>id</code> (np. #menu)<br>
+                <strong>Selektor .</strong> oznacza klasę (np. .blok)<br>
+                <strong>Selektor bez znaku</strong> oznacza znacznik HTML (np. body, ul, button)
+            </div>
+        </div>
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <section class="section" id="javascript">
+        <div class="section-header">
+            <span class="section-number">5</span>
+            <h2>Skrypt JavaScript</h2>
+        </div>
+        
+        <div class="info-box info">
+            <span class="info-icon">ℹ️</span>
+            <div>
+                Skrypt JavaScript jest już umieszczony w pliku kontakt.html.
+                Tutaj wyjaśniam dokładnie, jak działa każda linia kodu.
+            </div>
+        </div>
+        
+        <h3>🔍 Analiza skryptu krok po kroku</h3>
+        
+        <span class="code-label">JavaScript - szczegółowe wyjaśnienie</span>
+        <div class="code-block">
+<code><span class="comment">// Definiujemy funkcję o nazwie "wyslij"</span>
+<span class="comment">// Ta funkcja uruchamia się po kliknięciu przycisku "Wyślij"</span>
+<span class="js-keyword">function</span> <span class="js-function">wyslij</span>() {
+
+    <span class="comment">// ==========================================</span>
+    <span class="comment">// KROK 1: Pobieranie wartości z formularza</span>
+    <span class="comment">// ==========================================</span>
+    
+    <span class="comment">// Znajdujemy pole z id="imie" i pobieramy jego wartość (.value)</span>
+    <span class="js-keyword">var</span> imie = document.getElementById(<span class="js-string">"imie"</span>).value;
+    
+    <span class="comment">// Znajdujemy pole z id="nazwisko" i pobieramy jego wartość</span>
+    <span class="js-keyword">var</span> nazwisko = document.getElementById(<span class="js-string">"nazwisko"</span>).value;
+    
+    <span class="comment">// Znajdujemy pole z id="email" i pobieramy jego wartość</span>
+    <span class="js-keyword">var</span> email = document.getElementById(<span class="js-string">"email"</span>).value;
+    
+    <span class="comment">// Znajdujemy listę rozwijaną z id="usluga" i pobieramy wybraną opcję</span>
+    <span class="js-keyword">var</span> usluga = document.getElementById(<span class="js-string">"usluga"</span>).value;
+    
+
+    <span class="comment">// ==========================================</span>
+    <span class="comment">// KROK 2: Przetwarzanie danych</span>
+    <span class="comment">// ==========================================</span>
+    
+    <span class="comment">// Zamieniamy email na małe litery</span>
+    <span class="comment">// Np. "ANNA@POCZTA.PL" zamienia się na "anna@poczta.pl"</span>
+    email = email.toLowerCase();
+    
+
+    <span class="comment">// ==========================================</span>
+    <span class="comment">// KROK 3: Wyświetlanie wyniku</span>
+    <span class="comment">// ==========================================</span>
+    
+    <span class="comment">// Znajdujemy paragraf z id="wynik"</span>
+    <span class="comment">// i wstawiamy do niego tekst (innerHTML)</span>
+    document.getElementById(<span class="js-string">"wynik"</span>).innerHTML = 
+        imie + <span class="js-string">" "</span> + nazwisko + <span class="js-string">"&lt;br&gt;"</span> +   <span class="comment">// Imię Nazwisko + nowa linia</span>
+        email + <span class="js-string">"&lt;br&gt;"</span> +                           <span class="comment">// email + nowa linia</span>
+        <span class="js-string">"Usługa: "</span> + usluga;                          <span class="comment">// "Usługa: " + wybrana usługa</span>
+}
+</code>
+        </div>
+        
+        <h3>📋 Ważne metody JavaScript</h3>
+        
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Metoda</th>
+                    <th>Co robi?</th>
+                    <th>Przykład</th>
+                </tr>
+                <tr>
+                    <td><code>document.getElementById("id")</code></td>
+                    <td>Znajduje element HTML po jego id</td>
+                    <td>document.getElementById("imie")</td>
+                </tr>
+                <tr>
+                    <td><code>.value</code></td>
+                    <td>Pobiera wartość z pola formularza</td>
+                    <td>getElementById("imie").value</td>
+                </tr>
+                <tr>
+                    <td><code>.innerHTML</code></td>
+                    <td>Ustawia/pobiera zawartość HTML elementu</td>
+                    <td>element.innerHTML = "tekst"</td>
+                </tr>
+                <tr>
+                    <td><code>.toLowerCase()</code></td>
+                    <td>Zamienia tekst na małe litery</td>
+                    <td>"ANNA".toLowerCase() → "anna"</td>
+                </tr>
+                <tr>
+                    <td><code>.toUpperCase()</code></td>
+                    <td>Zamienia tekst na wielkie litery</td>
+                    <td>"anna".toUpperCase() → "ANNA"</td>
+                </tr>
+                <tr>
+                    <td><code>&lt;br&gt;</code></td>
+                    <td>Nowa linia w HTML</td>
+                    <td>"tekst" + "&lt;br&gt;" + "tekst2"</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="info-box tip">
+            <span class="info-icon">💡</span>
+            <div>
+                <strong>Jak to działa?</strong><br>
+                1. Użytkownik wpisuje dane w formularz<br>
+                2. Klika przycisk "Wyślij"<br>
+                3. Przycisk ma <code>onclick="wyslij()"</code> - uruchamia funkcję<br>
+                4. Funkcja pobiera dane, przetwarza i wyświetla wynik
+            </div>
+        </div>
+        
+        <h3>🔗 Połączenie HTML z JavaScript</h3>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">1</span>
+                Przycisk wywołuje funkcję
+            </div>
+            <div class="code-block">
+<code><span class="tag">&lt;button</span> <span class="attr">type=</span><span class="value">"button"</span> <span class="attr">onclick=</span><span class="value">"wyslij()"</span><span class="tag">&gt;</span>Wyślij<span class="tag">&lt;/button&gt;</span></code>
+            </div>
+            <p>Atrybut <code>onclick="wyslij()"</code> mówi: "gdy klikniesz, uruchom funkcję wyslij()"</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">2</span>
+                Funkcja znajduje elementy po id
+            </div>
+            <p>Dlatego każde pole formularza ma swoje <code>id</code>:</p>
+            <div class="code-block">
+<code><span class="tag">&lt;input</span> <span class="attr">type=</span><span class="value">"text"</span> <span class="attr">id=</span><span class="value">"imie"</span><span class="tag">&gt;</span>      <span class="comment">&lt;!-- JavaScript szuka: getElementById("imie") --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type=</span><span class="value">"text"</span> <span class="attr">id=</span><span class="value">"nazwisko"</span><span class="tag">&gt;</span>  <span class="comment">&lt;!-- JavaScript szuka: getElementById("nazwisko") --&gt;</span></code>
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">3</span>
+                Wynik wyświetla się w paragrafie
+            </div>
+            <div class="code-block">
+<code><span class="tag">&lt;p</span> <span class="attr">id=</span><span class="value">"wynik"</span><span class="tag">&gt;&lt;/p&gt;</span>  <span class="comment">&lt;!-- Tu wstawia się tekst przez innerHTML --&gt;</span></code>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINALIZACJA -->
+    <section class="section" id="finalizacja">
+        <div class="section-header">
+            <span class="section-number">6</span>
+            <h2>Finalizacja i sprawdzenie</h2>
+        </div>
+        
+        <h3>✅ Lista kontrolna - sprawdź przed oddaniem!</h3>
+        
+        <ul class="checklist">
+            <li><strong>favicon.png</strong> - logo 50×50 px, przezroczyste tło</li>
+            <li><strong>baner1.png</strong> - 1000×200 px, czerwony tekst</li>
+            <li><strong>baner2.png</strong> - 1000×200 px, żółty tekst</li>
+            <li><strong>animacja.gif</strong> - banery zmieniają się co 4 sekundy</li>
+            <li><strong>klatki.jpg</strong> - zrzut ekranu z GIMP (widoczne 4000ms)</li>
+            <li><strong>index.html</strong> - strona główna z 3 blokami</li>
+            <li><strong>kontakt.html</strong> - strona z formularzem</li>
+            <li><strong>styl.css</strong> - style CSS</li>
+            <li><strong>przeglądarka.txt</strong> - nazwa przeglądarki</li>
+        </ul>
+        
+        <h3>📝 Utwórz plik przeglądarka.txt</h3>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">1</span>
+                Otwórz Notatnik
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">2</span>
+                Wpisz nazwę przeglądarki
+            </div>
+            <p>Np. <code>Google Chrome</code> lub <code>Mozilla Firefox</code></p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">3</span>
+                Zapisz jako "przeglądarka.txt"
+            </div>
+        </div>
+        
+        <h3>🧪 Testowanie strony</h3>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">1</span>
+                Otwórz index.html w przeglądarce
+            </div>
+            <p>Kliknij dwukrotnie na plik lub: Prawy przycisk → Otwórz za pomocą → Chrome/Firefox</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">2</span>
+                Sprawdź:
+            </div>
+            <p>✓ Czy animacja się wyświetla i zmienia?</p>
+            <p>✓ Czy linki w menu działają?</p>
+            <p>✓ Czy favicon widać na karcie przeglądarki?</p>
+            <p>✓ Czy kolory są zgodne z wymaganiami?</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">3</span>
+                Przetestuj formularz na stronie kontakt.html
+            </div>
+            <p>✓ Wpisz dane i kliknij "Wyślij"</p>
+            <p>✓ Czy email jest małymi literami?</p>
+            <p>✓ Czy przycisk "Czyść" czyści pola?</p>
+        </div>
+        
+        <h3>💿 Nagrywanie płyty CD</h3>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">1</span>
+                Włóż czystą płytę CD do napędu
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">2</span>
+                Otwórz folder z Twoim numerem PESEL
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">3</span>
+                Zaznacz wszystkie pliki (Ctrl+A)
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">4</span>
+                Przeciągnij pliki na ikonę napędu CD
+            </div>
+            <p>Lub: Prawy przycisk → Wyślij do → Napęd CD</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">5</span>
+                Kliknij "Nagraj na dysk"
+            </div>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">6</span>
+                Sprawdź poprawność nagrania!
+            </div>
+            <p>Wyjmij płytę, włóż ponownie i sprawdź czy pliki są dostępne</p>
+        </div>
+        
+        <div class="step">
+            <div class="step-title">
+                <span class="step-icon">7</span>
+                Opisz płytę swoim numerem PESEL
+            </div>
+            <p>Użyj markera do płyt CD</p>
+        </div>
+        
+        <div class="info-box danger">
+            <span class="info-icon">❗</span>
+            <div>
+                <strong>BARDZO WAŻNE:</strong>
+                <ul style="margin-top: 0.5rem; margin-left: 1rem;">
+                    <li>Zawsze sprawdzaj płytę po nagraniu!</li>
+                    <li>Opisz płytę numerem PESEL</li>
+                    <li>Włóż płytę do pudełka</li>
+                    <li>Zostaw wszystko na stanowisku</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h3>🎯 Kryteria oceny</h3>
+        
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Obszar</th>
+                    <th>Co jest sprawdzane?</th>
+                </tr>
+                <tr>
+                    <td>Grafika i animacja</td>
+                    <td>Favicon, banery, animacja GIF, zrzut ekranu</td>
+                </tr>
+                <tr>
+                    <td>Wygląd witryny</td>
+                    <td>Układ bloków, zgodność z obrazem wzorcowym</td>
+                </tr>
+                <tr>
+                    <td>Działanie witryny</td>
+                    <td>Linki, formularz, favicon na karcie</td>
+                </tr>
+                <tr>
+                    <td>Styl CSS</td>
+                    <td>Kolory, rozmiary, formatowanie zgodne z wymaganiami</td>
+                </tr>
+                <tr>
+                    <td>Skrypt</td>
+                    <td>Pobieranie danych, toLowerCase(), wyświetlanie wyniku</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+    
+    <!-- ŚCIĄGAWKA -->
+    <section class="section" id="sciagawka">
+        <div class="section-header">
+            <span class="section-number">📌</span>
+            <h2>Szybka ściągawka</h2>
+        </div>
+        
+        <h3>🏷️ Podstawowe znaczniki HTML5</h3>
+        
+        <div class="code-block">
+<code><span class="tag">&lt;!DOCTYPE html&gt;</span>          <span class="comment">&lt;!-- Deklaracja HTML5 --&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang=</span><span class="value">"pl"</span><span class="tag">&gt;</span>           <span class="comment">&lt;!-- Język polski --&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">charset=</span><span class="value">"UTF-8"</span><span class="tag">&gt;</span>     <span class="comment">&lt;!-- Kodowanie UTF-8 --&gt;</span>
+<span class="tag">&lt;title&gt;</span>Tytuł<span class="tag">&lt;/title&gt;</span>        <span class="comment">&lt;!-- Tytuł na karcie --&gt;</span>
+<span class="tag">&lt;link</span> <span class="attr">rel=</span><span class="value">"icon"</span> <span class="attr">href=</span><span class="value">"..."</span><span class="tag">&gt;</span>  <span class="comment">&lt;!-- Favicon --&gt;</span>
+<span class="tag">&lt;link</span> <span class="attr">rel=</span><span class="value">"stylesheet"</span> <span class="attr">href=</span><span class="value">"..."</span><span class="tag">&gt;</span>  <span class="comment">&lt;!-- Arkusz CSS --&gt;</span>
+
+<span class="tag">&lt;header&gt;</span>  <span class="comment">&lt;!-- Nagłówek/baner --&gt;</span>
+<span class="tag">&lt;nav&gt;</span>     <span class="comment">&lt;!-- Menu nawigacji --&gt;</span>
+<span class="tag">&lt;main&gt;</span>    <span class="comment">&lt;!-- Główna treść --&gt;</span>
+<span class="tag">&lt;section&gt;</span> <span class="comment">&lt;!-- Sekcja/blok --&gt;</span>
+<span class="tag">&lt;footer&gt;</span>  <span class="comment">&lt;!-- Stopka --&gt;</span>
+
+<span class="tag">&lt;h1&gt;</span>-<span class="tag">&lt;h6&gt;</span>  <span class="comment">&lt;!-- Nagłówki --&gt;</span>
+<span class="tag">&lt;p&gt;</span>       <span class="comment">&lt;!-- Paragraf --&gt;</span>
+<span class="tag">&lt;ul&gt;</span>      <span class="comment">&lt;!-- Lista nieuporządkowana --&gt;</span>
+<span class="tag">&lt;li&gt;</span>      <span class="comment">&lt;!-- Element listy --&gt;</span>
+<span class="tag">&lt;a&gt;</span>       <span class="comment">&lt;!-- Link --&gt;</span>
+<span class="tag">&lt;img&gt;</span>     <span class="comment">&lt;!-- Obraz --&gt;</span>
+<span class="tag">&lt;em&gt;</span>      <span class="comment">&lt;!-- Pochylenie (semantyczne) --&gt;</span>
+<span class="tag">&lt;hr&gt;</span>      <span class="comment">&lt;!-- Linia pozioma --&gt;</span></code>
+        </div>
+        
+        <h3>📝 Elementy formularza</h3>
+        
+        <div class="code-block">
+<code><span class="tag">&lt;input</span> <span class="attr">type=</span><span class="value">"text"</span><span class="tag">&gt;</span>      <span class="comment">&lt;!-- Pole tekstowe --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type=</span><span class="value">"email"</span><span class="tag">&gt;</span>     <span class="comment">&lt;!-- Pole e-mail --&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type=</span><span class="value">"checkbox"</span><span class="tag">&gt;</span>  <span class="comment">&lt;!-- Pole wyboru --&gt;</span>
+<span class="tag">&lt;select&gt;</span>                <span class="comment">&lt;!-- Lista rozwijana --&gt;</span>
+<span class="tag">&lt;option&gt;</span>                <span class="comment">&lt;!-- Opcja listy --&gt;</span>
+<span class="tag">&lt;button</span> <span class="attr">type=</span><span class="value">"reset"</span><span class="tag">&gt;</span>   <span class="comment">&lt;!-- Przycisk czyszczący --&gt;</span>
+<span class="tag">&lt;button</span> <span class="attr">type=</span><span class="value">"button"</span><span class="tag">&gt;</span>  <span class="comment">&lt;!-- Przycisk zwykły --&gt;</span></code>
+        </div>
+        
+        <h3>🎨 Podstawowe właściwości CSS</h3>
+        
+        <div class="code-block">
+<code><span class="property">background-color</span>: #kolor;   <span class="comment">/* Kolor tła */</span>
+<span class="property">color</span>: #kolor;              <span class="comment">/* Kolor tekstu */</span>
+<span class="property">font-family</span>: Arial;         <span class="comment">/* Czcionka */</span>
+<span class="property">font-size</span>: 150%;            <span class="comment">/* Rozmiar czcionki */</span>
+<span class="property">text-align</span>: center;         <span class="comment">/* Wyrównanie */</span>
+<span class="property">text-decoration</span>: none;      <span class="comment">/* Bez podkreślenia */</span>
+<span class="property">width</span>: 95%;                 <span class="comment">/* Szerokość */</span>
+<span class="property">height</span>: 200px;              <span class="comment">/* Wysokość */</span>
+<span class="property">margin</span>: auto;               <span class="comment">/* Marginesy zewnętrzne */</span>
+<span class="property">padding</span>: 15px;              <span class="comment">/* Marginesy wewnętrzne */</span>
+<span class="property">display</span>: inline-block;      <span class="comment">/* Wyświetlanie obok siebie */</span></code>
+        </div>
+        
+        <h3>⚡ JavaScript - najważniejsze</h3>
+        
+        <div class="code-block">
+<code><span class="comment">// Znalezienie elementu po id</span>
+document.getElementById(<span class="js-string">"id"</span>)
+
+<span class="comment">// Pobranie wartości z pola formularza</span>
+document.getElementById(<span class="js-string">"id"</span>).value
+
+<span class="comment">// Wstawienie tekstu do elementu</span>
+document.getElementById(<span class="js-string">"id"</span>).innerHTML = <span class="js-string">"tekst"</span>
+
+<span class="comment">// Zamiana na małe litery</span>
+tekst.toLowerCase()
+
+<span class="comment">// Nowa linia w HTML</span>
+<span class="js-string">"&lt;br&gt;"</span></code>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>🎓 Tutorial przygotowany dla uczniów przystępujących do egzaminu INF.03</p>
+    <p>Powodzenia na egzaminie! 💪</p>
+</footer>
+
+</body>
+</html>
